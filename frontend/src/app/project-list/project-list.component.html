@@ -1,0 +1,32 @@
+<div>
+  <button routerLink="/employees">Return</button>
+  <button routerLink="/add-project">Add Project</button>
+  <table>
+    <thead>
+      <tr>
+        <th style="cursor: pointer;" (click)="onSort('ID')">Project ID</th>
+        <th style="cursor: pointer;" (click)="onSort('ProjectType')">Project Type</th>
+        <th style="cursor: pointer;" (click)="onSort('StartDate')">Start Date</th>
+        <th style="cursor: pointer;" (click)="onSort('EndDate')">End Date</th>
+        <th style="cursor: pointer;" (click)="onSort('ProjectManager')">Project Manager</th>
+        <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.ID }}</td>
+        <td>{{ project.ProjectType }}</td>
+        <td>{{ project.StartDate | date: 'shortDate' }}</td>
+        <td>{{ project.EndDate | date: 'shortDate' }}</td>
+        <td>{{ project.ProjectManager }}</td>
+        <td>{{ project.Status }}</td>
+        <td>
+          <button (click)="editProject(project.ID)">Edit</button>
+          <button (click)="deleteProject(project.ID)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,57 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <label for="FullName">Full Name:</label>
+    <input id="FullName" formControlName="FullName" />
+    <br>
+    <label for="Subdivision">Subdivision:</label>
+    <select name="Subdivision" id="Subdivision" formControlName="Subdivision" required>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Sales">Sales</option>
+        <option value="Support">Support</option>
+        <option value="Marketing">Marketing</option>
+    </select>
+    <div *ngIf="employeeForm.get('Subdivision')?.invalid && employeeForm.get('Subdivision')?.touched">
+        Subdivision is required
+    </div>
+    <!-- <input id="Subdivision" formControlName="Subdivision" /> -->
+    <br>
+    <label for="Position">Position:</label>
+    <select name="Position" id="Position" formControlName="Position" required>
+        <option value="HR Manager">HR Manager</option>
+        <option value="Project Manager">Project Manager</option>
+        <option value="Administrator">Administrator</option>
+        <option value="Designer">Designer</option>
+    </select>
+    <div *ngIf="employeeForm.get('Position')?.invalid && employeeForm.get('Position')?.touched">
+        Position is required
+    </div>
+    <!-- <input id="Position" formControlName="Position" /> -->
+    <br>
+    <label for="Status">Status:</label>
+    <select name="Status" id="Status" formControlName="Status" required>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+    <div *ngIf="employeeForm.get('Status')?.invalid && employeeForm.get('Status')?.touched">
+        Status is required
+    </div>
+    <!-- <input id="Status" formControlName="Status" /> -->
+    <br>
+    <label for="PeoplePartner">People Partner:</label>
+    <input id="PeoplePartner" formControlName="PeoplePartner" type="number" required/>
+    <div *ngIf="employeeForm.get('PeoplePartner')?.invalid && employeeForm.get('PeoplePartner')?.touched">
+        People Partner is required
+    </div>
+    <br>
+    <label for="OutOfOfficeBalance">Out Of Office Balance:</label>
+    <input id="OutOfOfficeBalance" formControlName="OutOfOfficeBalance" type="number" required/>
+    <div *ngIf="employeeForm.get('OutOfOfficeBalance')?.invalid && employeeForm.get('OutOfOfficeBalance')?.touched">
+        Out Of Office Balance is required
+    </div>
+    <br>
+    <input type="file" (change)="onFileSelected($event)" accept=".jpg, .jpeg, .png" formControlName="Photo">
+    <br>
+    <button type="button" routerLink="/employees">Cancel</button>
+    <button type="submit">Save</button>
+</form>
+<router-outlet></router-outlet>

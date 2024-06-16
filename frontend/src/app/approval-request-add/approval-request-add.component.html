@@ -1,0 +1,34 @@
+<div>
+  <form [formGroup]="approvalRequestForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="approver">Approver</label>
+      <input id="approver" formControlName="Approver" required>
+      <div *ngIf="approvalRequestForm.get('Approver')?.invalid && approvalRequestForm.get('Approver')?.touched">
+        Approver is required
+      </div>
+    </div>
+    <div>
+      <label for="leaveRequestID">Leave Request ID</label>
+      <input id="leaveRequestID" formControlName="LeaveRequest" required>
+      <div *ngIf="approvalRequestForm.get('LeaveRequest')?.invalid && approvalRequestForm.get('LeaveRequest')?.touched">
+        Leave Request ID is required
+      </div>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select id="status" formControlName="Status" required>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+      <div *ngIf="approvalRequestForm.get('Status')?.invalid && approvalRequestForm.get('Status')?.touched">
+        Status is required
+      </div>
+    </div>
+    <div>
+      <label for="comment">Comment</label>
+      <textarea id="comment" formControlName="Comment"></textarea>
+    </div>
+    <button type="button" routerLink="/approval-requests">Cancel</button>
+    <button type="submit" [disabled]="approvalRequestForm.invalid">Add Approval Request</button>
+  </form>
+</div>

@@ -1,0 +1,46 @@
+<div>
+    <button routerLink="/add">Add Employee</button>
+    <button routerLink="/leaverequests">Leave Requests</button>
+    <button routerLink="/add-leave-request">Add Leave Request</button>
+    <button routerLink="/approval-requests">Approval Requests</button>
+    <button routerLink="/approval-requests/add">Add Approval Request</button>
+    <button routerLink="/projects">Projects</button>
+    <button routerLink="/add-project">Add Project</button>
+</div>
+<div *ngIf="employees.length">
+    <table>
+        <thead>
+            <tr>
+                <th style="cursor: pointer;" (click)="onSort('ID')">ID</th>
+                <th style="cursor: pointer;">Photo</th>
+                <th style="cursor: pointer;" (click)="onSort('FullName')">Full Name</th>
+                <th style="cursor: pointer;" (click)="onSort('Subdivision')">Subdivision</th>
+                <th style="cursor: pointer;" (click)="onSort('Position')">Position</th>
+                <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
+                <th style="cursor: pointer;" (click)="onSort('PeoplePartner')">People Partner</th>
+                <th style="cursor: pointer;" (click)="onSort('OutOfOfficeBalance')">Out-of-Office Balance</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees">
+                <td>{{ employee.ID }}</td>
+                <td><img *ngIf="employee.Photo" [src]="'data:image/jpeg;base64,' + employee.Photo" alt="Employee Photo" width="50"></td>
+                <td>{{ employee.FullName }}</td>
+                <td>{{ employee.Subdivision }}</td>
+                <td>{{ employee.Position }}</td>
+                <td>{{ employee.Status }}</td>
+                <td>{{ employee.PeoplePartner }}</td>
+                <td>{{ employee.OutOfOfficeBalance }}</td>
+                <td>
+                    <button (click)="editEmployee(employee.ID)">Edit</button>
+                    <button (click)="deleteEmployee(employee.ID)">Delete</button>
+                </td>
+            </tr>
+    </tbody>
+    </table>
+</div>
+<div *ngIf="!employees.length">
+    No employees found.
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,35 @@
+<div>
+  <button routerLink="/employees">Return</button>
+  <button routerLink="/approval-requests/add">Add Approval Request</button>
+</div>
+<div *ngIf="approvalRequests.length">
+  <table>
+    <thead>
+      <tr>
+        <th style="cursor: pointer;" (click)="onSort('ID')">ID</th>
+        <th style="cursor: pointer;" (click)="onSort('Approver')">Approver</th>
+        <th style="cursor: pointer;" (click)="onSort('LeaveRequest')">Leave Request ID</th>
+        <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
+        <th style="cursor: pointer;" (click)="onSort('Comment')">Comment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of approvalRequests">
+        <td>{{ request.ID }}</td>
+        <td>{{ request.Approver }}</td>
+        <td>{{ request.LeaveRequest }}</td>
+        <td>{{ request.Status }}</td>
+        <td>{{ request.Comment }}</td>
+        <td>
+          <!-- <button (click)="editApprovalRequest(request.ID)">Edit</button>
+          <button (click)="deleteApprovalRequest(request.ID)">Delete</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!approvalRequests.length">
+  No leave requests found.
+</div>
+<router-outlet></router-outlet>

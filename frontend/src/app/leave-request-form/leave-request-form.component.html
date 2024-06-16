@@ -1,0 +1,47 @@
+<form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()">
+    <label for="Employee">Employee:</label>
+    <input id="Employee" formControlName="Employee" required/>
+    <div *ngIf="leaveRequestForm.get('Employee')?.invalid && leaveRequestForm.get('Employee')?.touched">
+      Employee is required
+    </div>
+    <br>
+  
+    <label for="AbsenceReason">Absence Reason:</label>
+    <!-- <input id="AbsenceReason" formControlName="AbsenceReason" /> -->
+    <select name="AbsenceReason" id="AbsenceReason" formControlName="AbsenceReason" required>
+        <option value="Vacation">Vacation</option>
+        <option value="Sick Leave">Sick Leave</option>
+        <option value="Personal">Personal</option>
+        <option value="Other">Other</option>
+    </select>
+    <div *ngIf="leaveRequestForm.get('AbsenceReason')?.invalid && leaveRequestForm.get('AbsenceReason')?.touched">
+      Absence Reason is required
+    </div>
+    <br>
+  
+    <label for="StartDate">Start Date:</label>
+    <input id="StartDate" type="date" formControlName="StartDate" required/>
+    <div *ngIf="leaveRequestForm.get('StartDate')?.invalid && leaveRequestForm.get('StartDate')?.touched">
+      Start Date is required
+    </div>
+    <br>
+  
+    <label for="EndDate">End Date:</label>
+    <input id="EndDate" type="date" formControlName="EndDate" required/>
+    <div *ngIf="leaveRequestForm.get('EndDate')?.invalid && leaveRequestForm.get('EndDate')?.touched">
+      End Date is required
+    </div>
+    <br>
+  
+    <label for="Comment">Comment:</label>
+    <input id="Comment" formControlName="Comment" />
+    <br>
+  
+    <label for="Status">Status:</label>
+    <input id="Status" formControlName="Status"/>
+    <br>
+  
+    <button type="button" routerLink="/leaverequests">Cancel</button>
+    <button type="submit">Save</button>
+</form>
+  

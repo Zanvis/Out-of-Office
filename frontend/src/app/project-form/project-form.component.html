@@ -1,0 +1,52 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <label for="ProjectType">Project Type:</label>
+    <!-- <input id="ProjectType" formControlName="ProjectType" /> -->
+    <select name="ProjectType" id="ProjectType" formControlName="ProjectType" required>
+        <option value="IT">IT</option>
+        <option value="Research">Research</option>
+        <option value="Manufacturing">Manufacturing</option>
+        <option value="Development">Development</option>
+        <option value="Marketing">Marketing</option>
+    </select>
+    <div *ngIf="projectForm.get('ProjectType')?.invalid && projectForm.get('ProjectType')?.touched">
+      Project Type is required
+    </div>
+    <br>
+  
+    <label for="StartDate">Start Date:</label>
+    <input type="date" id="StartDate" formControlName="StartDate" required/>
+    <div *ngIf="projectForm.get('StartDate')?.invalid && projectForm.get('StartDate')?.touched">
+      Start Date is required
+    </div>
+    <br>
+  
+    <label for="EndDate">End Date:</label>
+    <input type="date" id="EndDate" formControlName="EndDate" />
+    <br>
+  
+    <label for="ProjectManager">Project Manager:</label>
+    <input id="ProjectManager" formControlName="ProjectManager" required/>
+    <div *ngIf="projectForm.get('ProjectManager')?.invalid && projectForm.get('ProjectManager')?.touched">
+      Project Manager is required
+    </div>
+    <br>
+  
+    <label for="Comment">Comment:</label>
+    <input id="Comment" formControlName="Comment" />
+    <br>
+  
+    <label for="Status">Status:</label>
+    <!-- <input id="Status" formControlName="Status" /> -->
+    <select name="Status" id="Status" formControlName="Status" required>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+    </select>
+    <div *ngIf="projectForm.get('Status')?.invalid && projectForm.get('Status')?.touched">
+      Status is required
+    </div>
+    <br>
+  
+    <button type="button" routerLink="/projects">Cancel</button>
+    <button type="submit">Save</button>
+  </form>
+  

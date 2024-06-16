@@ -1,0 +1,37 @@
+<div>
+    <button routerLink="/employees">Return</button>
+    <button routerLink="/add-leave-request">Add Leave Request</button>
+</div>
+<div *ngIf="leaveRequests.length">
+    <table>
+        <thead>
+            <tr>
+                <th style="cursor: pointer;" (click)="onSort('ID')">ID</th>
+                <th style="cursor: pointer;" (click)="onSort('Employee')">Employee</th>
+                <th style="cursor: pointer;" (click)="onSort('AbsenceReason')">Absence Reason</th>
+                <th style="cursor: pointer;" (click)="onSort('StartDate')">Start Date</th>
+                <th style="cursor: pointer;" (click)="onSort('EndDate')">End Date</th>
+                <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of leaveRequests">
+                <td>{{ request.ID }}</td>
+                <td>{{ request.Employee }}</td>
+                <td>{{ request.AbsenceReason }}</td>
+                <td>{{ request.StartDate | date }}</td>
+                <td>{{ request.EndDate | date }}</td>
+                <td>{{ request.Status }}</td>
+                <td>
+                    <button (click)="editLeaveRequest(request.ID)">Edit</button>
+                    <button (click)="deleteLeaveRequest(request.ID)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="!leaveRequests.length">
+    No leave requests found.
+</div>
+<router-outlet></router-outlet>
