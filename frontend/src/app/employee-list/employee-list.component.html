@@ -1,11 +1,20 @@
 <div>
-    <button routerLink="/add">Add Employee</button>
+    <!-- <button routerLink="/add">Add Employee</button> -->
+    <button *ngIf="roleService.getRole() === 'HRManager' || roleService.getRole() === 'ProjectManager'" routerLink="/add">Add Employee</button>
     <button routerLink="/leaverequests">Leave Requests</button>
     <button routerLink="/add-leave-request">Add Leave Request</button>
     <button routerLink="/approval-requests">Approval Requests</button>
     <button routerLink="/approval-requests/add">Add Approval Request</button>
     <button routerLink="/projects">Projects</button>
     <button routerLink="/add-project">Add Project</button>
+</div>
+<div>
+    <label for="filter">Filter:</label>
+    <input id="filter" (input)="applyFilter($event)">
+</div>
+<div>
+    <label for="searchById">Search by Request Number:</label>
+    <input id="searchById" (input)="searchByRequestId($event)">
 </div>
 <div *ngIf="employees.length">
     <table>
@@ -23,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let employee of employees">
+            <tr *ngFor="let employee of filteredEmployees">
                 <td>{{ employee.ID }}</td>
                 <td><img *ngIf="employee.Photo" [src]="'data:image/jpeg;base64,' + employee.Photo" alt="Employee Photo" width="50"></td>
                 <td>{{ employee.FullName }}</td>
@@ -32,7 +41,7 @@
                 <td>{{ employee.Status }}</td>
                 <td>{{ employee.PeoplePartner }}</td>
                 <td>{{ employee.OutOfOfficeBalance }}</td>
-                <td>
+                <td *ngIf="roleService.getRole() === 'HRManager'">
                     <button (click)="editEmployee(employee.ID)">Edit</button>
                     <button (click)="deleteEmployee(employee.ID)">Delete</button>
                 </td>

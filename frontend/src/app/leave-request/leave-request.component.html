@@ -2,6 +2,14 @@
     <button routerLink="/employees">Return</button>
     <button routerLink="/add-leave-request">Add Leave Request</button>
 </div>
+<div>
+    <label for="filter">Filter:</label>
+    <input id="filter" (input)="applyFilter($event)">
+</div>
+<div>
+    <label for="searchById">Search by Request Number:</label>
+    <input id="searchById" (input)="searchByRequestId($event)">
+</div>
 <div *ngIf="leaveRequests.length">
     <table>
         <thead>
@@ -16,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let request of leaveRequests">
+            <tr *ngFor="let request of filteredLeaveRequests">
                 <td>{{ request.ID }}</td>
                 <td>{{ request.Employee }}</td>
                 <td>{{ request.AbsenceReason }}</td>

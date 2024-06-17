@@ -6,6 +6,10 @@
   <label for="filter">Filter:</label>
   <input id="filter" (input)="applyFilter($event)">
 </div>
+<div>
+  <label for="searchById">Search by Request Number:</label>
+  <input id="searchById" (input)="searchByRequestId($event)">
+</div>
 <div *ngIf="approvalRequests.length">
   <table>
     <thead>

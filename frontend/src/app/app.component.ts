@@ -8,6 +8,7 @@ import { ProjectListComponent } from './project-list/project-list.component';
 import { LeaveRequestComponent } from './leave-request/leave-request.component';
 import { LeaveRequestFormComponent } from './leave-request-form/leave-request-form.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { RoleService } from './role.service';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,10 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 })
 export class AppComponent {
   title = 'frontend';
+  constructor(private roleService: RoleService) {}
+
+  onRoleChange(event: Event): void {
+    const role = (event.target as HTMLSelectElement).value;
+    this.roleService.setRole(role);
+  }
 }

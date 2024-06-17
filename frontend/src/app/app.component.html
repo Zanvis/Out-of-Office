@@ -1,1 +1,10 @@
+<div>
+    <label for="roleSelect">Select Role:</label>
+    <select id="roleSelect" (change)="onRoleChange($event)">
+        <option value="Employee">Employee</option>
+        <option value="HRManager">HR Manager</option>
+        <option value="ProjectManager">Project Manager</option>
+    </select>
+</div>
+
 <router-outlet></router-outlet>

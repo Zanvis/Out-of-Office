@@ -1,6 +1,16 @@
 <div>
   <button routerLink="/employees">Return</button>
   <button routerLink="/add-project">Add Project</button>
+</div>
+<div>
+  <label for="filter">Filter:</label>
+  <input id="filter" (input)="applyFilter($event)">
+</div>
+<div>
+  <label for="searchById">Search by Request Number:</label>
+  <input id="searchById" (input)="searchByRequestId($event)">
+</div>
+<div *ngIf="projects.length">
   <table>
     <thead>
       <tr>
@@ -9,24 +19,29 @@
         <th style="cursor: pointer;" (click)="onSort('StartDate')">Start Date</th>
         <th style="cursor: pointer;" (click)="onSort('EndDate')">End Date</th>
         <th style="cursor: pointer;" (click)="onSort('ProjectManager')">Project Manager</th>
+        <th style="cursor: pointer;" (click)="onSort('Comment')">Comment</th>
         <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let project of projects">
+      <tr *ngFor="let project of filteredProjects">
         <td>{{ project.ID }}</td>
         <td>{{ project.ProjectType }}</td>
         <td>{{ project.StartDate | date: 'shortDate' }}</td>
         <td>{{ project.EndDate | date: 'shortDate' }}</td>
         <td>{{ project.ProjectManager }}</td>
+        <td>{{ project.Comment }}</td>
         <td>{{ project.Status }}</td>
-        <td>
+        <td *ngIf="roleService.getRole() === 'ProjectManager'">
           <button (click)="editProject(project.ID)">Edit</button>
           <button (click)="deleteProject(project.ID)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+<div *ngIf="!projects.length">
+  No projects found.
 </div>
 <router-outlet></router-outlet>

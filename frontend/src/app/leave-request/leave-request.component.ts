@@ -3,6 +3,7 @@ import { LeaveRequest } from '../Models/leave-request-model';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LeaveRequestsService } from '../leave-requests.service';
 import { CommonModule } from '@angular/common';
+import { RoleService } from '../role.service';
 
 @Component({
   selector: 'app-leave-request',
@@ -13,10 +14,11 @@ import { CommonModule } from '@angular/common';
 })
 export class LeaveRequestComponent implements OnInit{
   leaveRequests: LeaveRequest[] = [];
+  filteredLeaveRequests: LeaveRequest[] = [];
   sortBy: string = 'ID'; // Default sort by ID
   sortDirection: number = 1
 
-  constructor(private leaveRequestService: LeaveRequestsService, private router: Router) { }
+  constructor(private leaveRequestService: LeaveRequestsService, private router: Router, public roleService: RoleService) { }
 
   ngOnInit(): void {
     this.getLeaveRequests();
@@ -25,6 +27,7 @@ export class LeaveRequestComponent implements OnInit{
   getLeaveRequests(): void {
     this.leaveRequestService.getLeaveRequests().subscribe((data) => {
       this.leaveRequests = data;
+      this.filteredLeaveRequests = data;
       this.sortLeaveRequests();
     });
   }
@@ -66,5 +69,24 @@ export class LeaveRequestComponent implements OnInit{
       this.sortDirection = 1;
     }
     this.sortLeaveRequests();
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredLeaveRequests = this.leaveRequests.filter((request) =>
+      Object.values(request).some((value: any) =>
+        value.toString().toLowerCase().includes(filterValue)
+      )
+    );
+  }
+  searchByRequestId(event: Event): void {
+    const requestId = (event.target as HTMLInputElement).value;
+    if (requestId) {
+      this.filteredLeaveRequests = this.leaveRequests.filter(request =>
+        request.ID === parseInt(requestId, 10)
+      );
+    } else {
+      this.filteredLeaveRequests = [...this.leaveRequests];
+    }
   }
 }
