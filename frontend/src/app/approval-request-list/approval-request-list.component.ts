@@ -13,6 +13,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class ApprovalRequestListComponent implements OnInit {
   approvalRequests: ApprovalRequest[] = [];
+  filteredApprovalRequests: ApprovalRequest[] = [];
   sortBy: string = 'ID'; // Default sort by ID
   sortDirection: number = 1
 
@@ -26,6 +27,7 @@ export class ApprovalRequestListComponent implements OnInit {
     this.approvalRequestService.getApprovalRequests().subscribe({
       next: (requests) => {
         this.approvalRequests = requests;
+        this.filteredApprovalRequests = requests;
         this.sortApprovalRequests();
       },
       error: (error) => {
@@ -61,6 +63,15 @@ export class ApprovalRequestListComponent implements OnInit {
       this.sortDirection = 1;
     }
     this.sortApprovalRequests();
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredApprovalRequests = this.approvalRequests.filter((request) =>
+      Object.values(request).some(value =>
+        value.toString().toLowerCase().includes(filterValue)
+      )
+    );
   }
 
   // approveRequest(requestId: number): void {
