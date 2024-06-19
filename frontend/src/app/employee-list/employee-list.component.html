@@ -1,12 +1,12 @@
 <div>
     <!-- <button routerLink="/add">Add Employee</button> -->
-    <button *ngIf="roleService.getRole() === 'HRManager' || roleService.getRole() === 'ProjectManager'" routerLink="/add">Add Employee</button>
-    <button routerLink="/leaverequests">Leave Requests</button>
-    <button routerLink="/add-leave-request">Add Leave Request</button>
-    <button routerLink="/approval-requests">Approval Requests</button>
-    <button routerLink="/approval-requests/add">Add Approval Request</button>
-    <button routerLink="/projects">Projects</button>
-    <button routerLink="/add-project">Add Project</button>
+    <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/Employees/add">Add Employee</button>
+    <button routerLink="/Lists/LeaveRequests">Leave Requests</button>
+    <button routerLink="/Lists/LeaveRequests/add">Add Leave Request</button>
+    <button routerLink="/Lists/ApprovalRequests">Approval Requests</button>
+    <button routerLink="/Lists/ApprovalRequests/add">Add Approval Request</button>
+    <button routerLink="/Lists/Projects">Projects</button>
+    <button routerLink="/Lists/Projects/add">Add Project</button>
 </div>
 <div>
     <label for="filter">Filter:</label>
@@ -41,7 +41,7 @@
                 <td>{{ employee.Status }}</td>
                 <td>{{ employee.PeoplePartner }}</td>
                 <td>{{ employee.OutOfOfficeBalance }}</td>
-                <td *ngIf="roleService.getRole() === 'HRManager'">
+                <td *ngIf="roleService.getRole() === 'HR Manager'">
                     <button (click)="editEmployee(employee.ID)">Edit</button>
                     <button (click)="deleteEmployee(employee.ID)">Delete</button>
                 </td>

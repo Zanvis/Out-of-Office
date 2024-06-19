@@ -7,7 +7,7 @@ import { LeaveRequest } from './Models/leave-request-model';
   providedIn: 'root'
 })
 export class LeaveRequestsService {
-  private baseUrl = 'http://localhost:3000/leaverequests';
+  private baseUrl = 'http://localhost:3000/Lists/LeaveRequests';
 
   constructor(private http: HttpClient) { }
 

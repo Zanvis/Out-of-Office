@@ -44,11 +44,11 @@ export class ProjectFormComponent implements OnInit{
     if (this.projectForm.valid) {
       if (this.id) {
         this.projectsService.updateProject(this.id, this.projectForm.value).subscribe(() => {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/Lists/Projects']);
         });
       } else {
         this.projectsService.addProject(this.projectForm.value).subscribe(() => {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/Lists/Projects']);
         });
       }
     }

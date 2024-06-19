@@ -44,11 +44,11 @@ export class LeaveRequestFormComponent implements OnInit{
     if (this.leaveRequestForm.valid) {
       if (this.id) {
         this.leaveRequestService.updateLeaveRequest(this.id, this.leaveRequestForm.value).subscribe(() => {
-          this.router.navigate(['/leaverequests']);
+          this.router.navigate(['/Lists/LeaveRequests']);
         });
       } else {
         this.leaveRequestService.addLeaveRequest(this.leaveRequestForm.value).subscribe(() => {
-          this.router.navigate(['/leaverequests']);
+          this.router.navigate(['/Lists/LeaveRequests']);
         });
       }
     }

@@ -52,7 +52,7 @@ export class ProjectListComponent implements OnInit{
   }
 
   editProject(id: number): void {
-    this.router.navigate(['/edit-project', id]);
+    this.router.navigate(['/Lists/Projects/edit', id]);
   }
   sortProjects(): void {
     this.projects.sort((a, b) => {

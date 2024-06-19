@@ -7,7 +7,7 @@ import { Project } from './Models/project.model';
   providedIn: 'root'
 })
 export class ProjectService {
-  private baseUrl = 'http://localhost:3000/projects';
+  private baseUrl = 'http://localhost:3000/Lists/Projects';
 
   constructor(private http: HttpClient) {}
 

@@ -1,6 +1,6 @@
 <div>
-  <button routerLink="/employees">Return</button>
-  <button routerLink="/add-project">Add Project</button>
+  <button routerLink="/Lists/Employees">Return</button>
+  <button routerLink="/Lists/Projects/add">Add Project</button>
 </div>
 <div>
   <label for="filter">Filter:</label>
@@ -33,7 +33,7 @@
         <td>{{ project.ProjectManager }}</td>
         <td>{{ project.Comment }}</td>
         <td>{{ project.Status }}</td>
-        <td *ngIf="roleService.getRole() === 'ProjectManager'">
+        <td *ngIf="roleService.getRole() === 'Project Manager'">
           <button (click)="editProject(project.ID)">Edit</button>
           <button (click)="deleteProject(project.ID)">Delete</button>
         </td>

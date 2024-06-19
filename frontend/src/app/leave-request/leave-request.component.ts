@@ -35,11 +35,12 @@ export class LeaveRequestComponent implements OnInit{
   deleteLeaveRequest(id: number): void {
     this.leaveRequestService.deleteLeaveRequest(id).subscribe(() => {
       this.leaveRequests = this.leaveRequests.filter(request => request.ID !== id);
+      this.filteredLeaveRequests = this.filteredLeaveRequests.filter(request => request.ID !== id);
     });
   }
 
   editLeaveRequest(id: number): void {
-    this.router.navigate(['/edit-leave-request', id]);
+    this.router.navigate(['/Lists/LeaveRequests/edit', id]);
   }
 
   sortLeaveRequests(): void {

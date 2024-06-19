@@ -33,11 +33,12 @@ export class EmployeeListComponent implements OnInit {
   deleteEmployee(id: number): void {
     this.employeeService.deleteEmployee(id).subscribe(() => {
       this.employees = this.employees.filter(employee => employee.ID !== id);
+      this.filteredEmployees = this.filteredEmployees.filter(employee => employee.ID !== id);
     });
   }
 
   editEmployee(id: number): void {
-    this.router.navigate(['/edit', id]);
+    this.router.navigate(['/Lists/Employees/edit', id]);
   }
 
   sortEmployees(): void {

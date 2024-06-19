@@ -7,7 +7,7 @@ import { ApprovalRequest } from './Models/approval-request-model';
   providedIn: 'root'
 })
 export class ApprovalRequestService {
-  private baseUrl = 'http://localhost:3000/approval-requests';
+  private baseUrl = 'http://localhost:3000/Lists/ApprovalRequests';
 
   constructor(private http: HttpClient) { }
 

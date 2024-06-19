@@ -43,11 +43,11 @@ export class ApprovalRequestAddComponent implements OnInit {
     if (this.approvalRequestForm.valid) {
       if (this.id) {
         this.approvalRequestService.updateApprovalRequest(this.id, this.approvalRequestForm.value).subscribe(() => {
-          this.router.navigate(['/approval-requests']);
+          this.router.navigate(['/Lists/ApprovalRequests']);
         });
       } else {
         this.approvalRequestService.addApprovalRequest(this.approvalRequestForm.value).subscribe(() => {
-          this.router.navigate(['/approval-requests']);
+          this.router.navigate(['/Lists/ApprovalRequests']);
         });
       }
     }

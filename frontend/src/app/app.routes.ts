@@ -10,18 +10,19 @@ import { ProjectFormComponent } from './project-form/project-form.component';
 import { roleGuard } from './role.guard';
 
 export const routes: Routes = [
-    { path: 'employees', component: EmployeeListComponent, canActivate: [roleGuard] },
-    { path: 'add', component: EmployeeFormComponent, canActivate: [roleGuard] },
-    { path: 'edit/:id', component: EmployeeFormComponent, canActivate: [roleGuard] },
-    { path: 'approval-requests', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
-    { path: 'approval-requests/add', component: ApprovalRequestAddComponent, canActivate: [roleGuard]},
-    { path: 'approval-requests/:approverId', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
-    { path: 'leaverequests', component: LeaveRequestComponent, canActivate: [roleGuard]},
-    { path: 'add-leave-request', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
-    { path: 'edit-leave-request/:id', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
-    { path: 'projects', component: ProjectListComponent, canActivate: [roleGuard]},
-    { path: 'add-project', component: ProjectFormComponent, canActivate: [roleGuard]},
-    { path: 'edit-project/:id', component: ProjectFormComponent, canActivate: [roleGuard]},
-    { path: 'projects/:id', component: ProjectFormComponent, canActivate: [roleGuard]},
-    { path: '**', redirectTo: '/employees'} 
+    { path: 'Lists/Employees', component: EmployeeListComponent, canActivate: [roleGuard] },
+    { path: 'Lists/Employees/add', component: EmployeeFormComponent, canActivate: [roleGuard] },
+    { path: 'Lists/Employees/edit/:id', component: EmployeeFormComponent, canActivate: [roleGuard] },
+    { path: 'Lists/ApprovalRequests', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
+    { path: 'Lists/ApprovalRequests/add', component: ApprovalRequestAddComponent, canActivate: [roleGuard]},
+    { path: 'Lists/ApprovalRequests/:approverId', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
+    { path: 'Lists/LeaveRequests', component: LeaveRequestComponent, canActivate: [roleGuard]},
+    { path: 'Lists/LeaveRequests/add', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
+    { path: 'Lists/LeaveRequests/edit/:id', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
+    { path: 'Lists/LeaveRequests/:id', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
+    { path: 'Lists/Projects', component: ProjectListComponent, canActivate: [roleGuard]},
+    { path: 'Lists/Projects/add', component: ProjectFormComponent, canActivate: [roleGuard]},
+    { path: 'Lists/Projects/edit/:id', component: ProjectFormComponent, canActivate: [roleGuard]},
+    { path: 'Lists/Projects/:id', component: ProjectFormComponent, canActivate: [roleGuard]},
+    { path: '**', redirectTo: '/Lists/Employees'} 
 ];

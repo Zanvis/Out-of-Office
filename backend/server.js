@@ -24,7 +24,7 @@ db.connect((err) => {
 });
 
 // Get all employees
-app.get('/employees', (req, res) => {
+app.get('/Lists/Employees', (req, res) => {
     db.query('SELECT * FROM Employees', (err, results) => {
         if (err) {
             res.status(500).send(err);
@@ -34,7 +34,7 @@ app.get('/employees', (req, res) => {
     });
 });
 
-app.post('/employees/:id/photo', upload.single('photo'), (req, res) => {
+app.post('/Lists/Employees/:id/photo', upload.single('photo'), (req, res) => {
     const { id } = req.params;
     const photo = req.file.buffer; 
 
@@ -48,7 +48,7 @@ app.post('/employees/:id/photo', upload.single('photo'), (req, res) => {
 });
 
 // Get employee by ID
-app.get('/employees/:id', (req, res) => {
+app.get('/Lists/Employees/:id', (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM Employees WHERE ID = ?', [id], (err, results) => {
         if (err) {
@@ -60,7 +60,7 @@ app.get('/employees/:id', (req, res) => {
 });
 
 // Create a new employee
-app.post('/employees', (req, res) => {
+app.post('/Lists/Employees', (req, res) => {
     const employee = req.body;
     db.query('INSERT INTO Employees SET ?', employee, (err, results) => {
         if (err) {
@@ -72,7 +72,7 @@ app.post('/employees', (req, res) => {
 });
 
 // Update an employee
-app.put('/employees/:id', (req, res) => {
+app.put('/Lists/Employees/:id', (req, res) => {
     const { id } = req.params;
     const employee = req.body;
     db.query('UPDATE Employees SET ? WHERE ID = ?', [employee, id], (err, results) => {
@@ -85,7 +85,7 @@ app.put('/employees/:id', (req, res) => {
 });
 
 // Delete an employee
-app.delete('/employees/:id', (req, res) => {
+app.delete('/Lists/Employees/:id', (req, res) => {
     const { id } = req.params;
     db.query('DELETE FROM Employees WHERE ID = ?', [id], (err, results) => {
         if (err) {
@@ -96,7 +96,7 @@ app.delete('/employees/:id', (req, res) => {
     });
 });
 
-app.get('/approval-requests', (req, res) => {
+app.get('/Lists/ApprovalRequests', (req, res) => {
     const sql = 'SELECT * FROM ApprovalRequests';
     db.query(sql, (err, results) => {
         if (err) {
@@ -124,7 +124,7 @@ app.get('/approval-requests', (req, res) => {
 //     });
 // });
 // Endpoint to create approval request
-app.post('/approval-requests', (req, res) => {
+app.post('/Lists/ApprovalRequests', (req, res) => {
     const { Approver, LeaveRequest, Status, Comment } = req.body;
     const sql = 'INSERT INTO ApprovalRequests (Approver, LeaveRequest, Status, Comment) VALUES (?, ?, ?, ?)';
     db.query(sql, [Approver, LeaveRequest, Status, Comment], (err, result) => {
@@ -137,7 +137,7 @@ app.post('/approval-requests', (req, res) => {
     });
 });
 // Endpoint to get approval requests by approver (HR manager or project manager)
-app.get('/approval-requests/:approverId', (req, res) => {
+app.get('/Lists/ApprovalRequests/:approverId', (req, res) => {
     const { approverId } = req.params;
     const sql = 'SELECT ar.*, lr.Employee, lr.AbsenceReason, lr.StartDate, lr.EndDate FROM ApprovalRequests ar INNER JOIN LeaveRequests lr ON ar.leaveRequest = lr.ID WHERE ar.approver = ?';
     db.query(sql, [approverId], (err, results) => {
@@ -151,7 +151,7 @@ app.get('/approval-requests/:approverId', (req, res) => {
 });
 
 // Endpoint to get all leave requests
-app.get('/leaverequests', (req, res) => {
+app.get('/Lists/LeaveRequests', (req, res) => {
     const sql = 'SELECT * FROM LeaveRequests';
     db.query(sql, (err, results) => {
         if (err) {
@@ -163,61 +163,109 @@ app.get('/leaverequests', (req, res) => {
 });
 
 // Endpoint to get a specific leave request by ID
-app.get('/leaverequests/:id', (req, res) => {
-    const { id } = req.params;
-    const sql = 'SELECT * FROM LeaveRequests WHERE ID = ?';
-    db.query(sql, [id], (err, results) => {
+// app.get('/Lists/LeaveRequests/:id', (req, res) => {
+//     const { id } = req.params;
+//     const sql = 'SELECT * FROM LeaveRequests WHERE ID = ?';
+//     db.query(sql, [id], (err, results) => {
+//         if (err) {
+//             handleQueryError(res, err);
+//         } else if (results.length === 0) {
+//             res.status(404).send({ message: 'Leave request not found' });
+//         } else {
+//             res.json(results[0]);
+//         }
+//     });
+// });
+
+// Endpoint to create a new leave request
+// app.post('/Lists/LeaveRequests', (req, res) => {
+//     const { Employee, AbsenceReason, StartDate, EndDate, Comment, Status } = req.body;
+//     const sql = 'INSERT INTO LeaveRequests (Employee, AbsenceReason, StartDate, EndDate, Comment, Status) VALUES (?, ?, ?, ?, ?, ?)';
+//     db.query(sql, [Employee, AbsenceReason, StartDate, EndDate, Comment, Status], (err, result) => {
+//         if (err) {
+//             handleQueryError(res, err);
+//         } else {
+//             res.status(201).send({ id: result.insertId, Employee, AbsenceReason, StartDate, EndDate, Comment, Status });
+//         }
+//     });
+// });
+
+
+app.post('/Lists/LeaveRequests', (req, res) => {
+    const leaveRequest = req.body;
+    leaveRequest.Status = 'New'
+    db.query('INSERT INTO LeaveRequests SET ?', leaveRequest, (err, results) => {
         if (err) {
-            handleQueryError(res, err);
-        } else if (results.length === 0) {
-            res.status(404).send({ message: 'Leave request not found' });
+            res.status(500).send(err);
+        } else {
+            res.status(201).send({ id: results.insertId, ...leaveRequest });
+        }
+    }); 
+});
+
+// // Endpoint to update an existing leave request
+// app.put('/Lists/LeaveRequests/:id', (req, res) => {
+//     const { id } = req.params;
+//     const { Employee, AbsenceReason, StartDate, EndDate, Comment, Status } = req.body;
+//     const sql = 'UPDATE LeaveRequests SET Employee = ?, AbsenceReason = ?, StartDate = ?, EndDate = ?, Comment = ?, Status = ? WHERE ID = ?';
+//     db.query(sql, [Employee, AbsenceReason, StartDate, EndDate, Comment, Status, id], (err, result) => {
+//         if (err) {
+//             handleQueryError(res, err);
+//         } else {
+//             res.send({ id, Employee, AbsenceReason, StartDate, EndDate, Comment, Status });
+//         }
+//     });
+// });
+
+app.get('/Lists/LeaveRequests/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('SELECT * FROM LeaveRequests WHERE ID = ?', [id], (err, results) => {
+        if (err) {
+            res.status(500).send(err);
         } else {
             res.json(results[0]);
         }
     });
 });
 
-// Endpoint to create a new leave request
-app.post('/leaverequests', (req, res) => {
-    const { Employee, AbsenceReason, StartDate, EndDate, Comment, Status } = req.body;
-    const sql = 'INSERT INTO LeaveRequests (Employee, AbsenceReason, StartDate, EndDate, Comment, Status) VALUES (?, ?, ?, ?, ?, ?)';
-    db.query(sql, [Employee, AbsenceReason, StartDate, EndDate, Comment, Status], (err, result) => {
+app.put('/Lists/LeaveRequests/:id', (req, res) => {
+    const { id } = req.params;
+    const leaveRequest = req.body;
+    db.query('UPDATE LeaveRequests SET ? WHERE ID = ?', [leaveRequest, id], (err, results) => {
         if (err) {
-            handleQueryError(res, err);
+            res.status(500).send(err);
         } else {
-            res.status(201).send({ id: result.insertId, Employee, AbsenceReason, StartDate, EndDate, Comment, Status });
+            res.send({ id, ...leaveRequest });
         }
     });
 });
 
-// Endpoint to update an existing leave request
-app.put('/leaverequests/:id', (req, res) => {
+// Delete an employee
+app.delete('/Lists/LeaveRequests/:id', (req, res) => {
     const { id } = req.params;
-    const { Employee, AbsenceReason, StartDate, EndDate, Comment, Status } = req.body;
-    const sql = 'UPDATE LeaveRequests SET Employee = ?, AbsenceReason = ?, StartDate = ?, EndDate = ?, Comment = ?, Status = ? WHERE ID = ?';
-    db.query(sql, [Employee, AbsenceReason, StartDate, EndDate, Comment, Status, id], (err, result) => {
+    db.query('DELETE FROM LeaveRequests WHERE ID = ?', [id], (err, results) => {
         if (err) {
-            handleQueryError(res, err);
+            res.status(500).send(err);
         } else {
-            res.send({ id, Employee, AbsenceReason, StartDate, EndDate, Comment, Status });
+            res.send({ message: 'LeaveRequests deleted', id });
         }
     });
 });
 
-// Endpoint to delete a leave request
-app.delete('/leaverequests/:id', (req, res) => {
-    const { id } = req.params;
-    const sql = 'DELETE FROM LeaveRequests WHERE ID = ?';
-    db.query(sql, [id], (err, result) => {
-        if (err) {
-            handleQueryError(res, err);
-        } else {
-            res.send({ message: 'Leave request deleted', id });
-        }
-    });
-}); 
+// // Endpoint to delete a leave request
+// app.delete('/Lists/LeaveRequests/:id', (req, res) => {
+//     const { id } = req.params;
+//     const sql = 'DELETE FROM LeaveRequests WHERE ID = ?';
+//     db.query(sql, [id], (err, result) => {
+//         if (err) {
+//             handleQueryError(res, err);
+//         } else {
+//             res.send({ message: 'Leave request deleted', id });
+//         }
+//     });
+// }); 
 
-app.get('/projects', (req, res) => {
+app.get('/Lists/Projects', (req, res) => {
     const sql = 'SELECT * FROM Projects';
     db.query(sql, (err, results) => {
         if (err) {
@@ -230,7 +278,7 @@ app.get('/projects', (req, res) => {
 });
 
 // Get a specific project by ID
-app.get('/projects/:id', (req, res) => {
+app.get('/Lists/Projects/:id', (req, res) => {
     const { id } = req.params;
     const sql = 'SELECT * FROM Projects WHERE ID = ?';
     db.query(sql, [id], (err, results) => {
@@ -246,7 +294,7 @@ app.get('/projects/:id', (req, res) => {
 });
 
 // Create a new project
-app.post('/projects', (req, res) => {
+app.post('/Lists/Projects', (req, res) => {
     const { ProjectType, StartDate, EndDate, ProjectManager, Comment, Status } = req.body;
     const sql = 'INSERT INTO Projects (ProjectType, StartDate, EndDate, ProjectManager, Comment, Status) VALUES (?, ?, ?, ?, ?, ?)';
     db.query(sql, [ProjectType, StartDate, EndDate, ProjectManager, Comment, Status], (err, result) => {
@@ -260,7 +308,7 @@ app.post('/projects', (req, res) => {
 });
 
 // Update an existing project
-app.put('/projects/:id', (req, res) => {
+app.put('/Lists/Projects/:id', (req, res) => {
     const { id } = req.params;
     const { ProjectType, StartDate, EndDate, ProjectManager, Comment, Status } = req.body;
     const sql = 'UPDATE Projects SET ProjectType = ?, StartDate = ?, EndDate = ?, ProjectManager = ?, Comment = ?, Status = ? WHERE ID = ?';
@@ -275,7 +323,7 @@ app.put('/projects/:id', (req, res) => {
 });
 
 // Delete a project
-app.delete('/projects/:id', (req, res) => {
+app.delete('/Lists/Projects/:id', (req, res) => {
     const { id } = req.params;
     const sql = 'DELETE FROM Projects WHERE ID = ?';
     db.query(sql, [id], (err, result) => {

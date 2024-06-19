@@ -49,11 +49,11 @@ export class EmployeeFormComponent implements OnInit {
   onSubmit(): void {
     if (this.id) {
       this.employeeService.updateEmployee(this.id, this.employeeForm.value).subscribe(() => {
-        this.router.navigate(['/employees']);
+        this.router.navigate(['/Lists/Employees']);
       });
     } else {
       this.employeeService.addEmployee(this.employeeForm.value).subscribe(() => {
-        this.router.navigate(['/employees']);
+        this.router.navigate(['/Lists/Employees']);
       });
     }
   }
