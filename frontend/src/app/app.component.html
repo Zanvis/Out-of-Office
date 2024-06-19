@@ -1,6 +1,6 @@
 <div>
     <label for="roleSelect">Select Role:</label>
-    <select id="roleSelect" (change)="onRoleChange($event)">
+    <select id="roleSelect" [value]="currentRole" (change)="onRoleChange($event)">
         <option value="Employee">Employee</option>
         <option value="HR Manager">HR Manager</option>
         <option value="Project Manager">Project Manager</option>

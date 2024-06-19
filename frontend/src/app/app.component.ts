@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
@@ -17,12 +17,20 @@ import { RoleService } from './role.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'frontend';
-  constructor(private roleService: RoleService) {}
+  currentRole!: string;
+  constructor(private roleService: RoleService) {
+    this.currentRole = this.roleService.getRole();
+  }
+
+  ngOnInit(): void {
+    this.currentRole = this.roleService.getRole();
+  }
 
   onRoleChange(event: Event): void {
     const role = (event.target as HTMLSelectElement).value;
     this.roleService.setRole(role);
+    this.currentRole = role;
   }
 }
