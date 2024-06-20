@@ -30,8 +30,10 @@
         <td>{{ request.Status }}</td>
         <td>{{ request.Comment }}</td>
         <td>
-          <!-- <button (click)="editApprovalRequest(request.ID)">Edit</button>
-          <button (click)="deleteApprovalRequest(request.ID)">Delete</button> -->
+          <button (click)="approveRequest(request)">Approve</button>
+          <button (click)="rejectRequest(request)">Reject</button>
+          <button (click)="editApprovalRequest(request.ID)">Edit</button>
+          <!-- <button (click)="deleteApprovalRequest(request.ID)">Delete</button> -->
         </td>
       </tr>
     </tbody>

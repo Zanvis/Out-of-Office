@@ -16,13 +16,14 @@
     </div>
     <div>
       <label for="status">Status</label>
-      <select id="status" formControlName="Status" required>
+      <input id="status" formControlName="Status" />
+      <!-- <select id="status" formControlName="Status" required>
         <option value="Approved">Approved</option>
         <option value="Rejected">Rejected</option>
       </select>
       <div *ngIf="approvalRequestForm.get('Status')?.invalid && approvalRequestForm.get('Status')?.touched">
         Status is required
-      </div>
+      </div> -->
     </div>
     <div>
       <label for="comment">Comment</label>

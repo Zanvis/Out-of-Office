@@ -15,6 +15,7 @@ import { ApprovalRequest } from '../Models/approval-request-model';
 export class ApprovalRequestAddComponent implements OnInit {
   approvalRequestForm: FormGroup;
   id!: number;
+  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,16 +26,20 @@ export class ApprovalRequestAddComponent implements OnInit {
     this.approvalRequestForm = this.fb.group({
       Approver: ['', Validators.required],
       LeaveRequest: ['', Validators.required],
-      Status: ['', Validators.required],
-      Comment: ['']
+      Status: [{value: 'New', disabled: true}],
+      Comment: [{ value: '', disabled: true }] 
     });
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     if (this.id) {
+      this.isEditMode = true;
       this.approvalRequestService.getApprovalRequest(this.id).subscribe((data) => {
         this.approvalRequestForm.patchValue(data);
+        if (this.isEditMode) {
+          this.approvalRequestForm.get('Comment')?.enable();
+        }
       });
     }
   }

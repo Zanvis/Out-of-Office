@@ -84,12 +84,27 @@ export class ApprovalRequestListComponent implements OnInit {
     } else {
       this.filteredApprovalRequests = [...this.approvalRequests];
     }
+  }  
+  approveRequest(request: ApprovalRequest): void {
+    this.approvalRequestService.approveRequest(request.ID, request.LeaveRequest).subscribe(() => {
+      this.loadApprovalRequests(); // Reload the list after approval
+    });
   }
-  // approveRequest(requestId: number): void {
-  //   console.log('Approve request with ID:', requestId);
-  // }
 
-  // rejectRequest(requestId: number): void {
-  //   console.log('Reject request with ID:', requestId);
-  // }
+  rejectRequest(request: ApprovalRequest): void {
+    const comment = prompt('Enter a comment for rejection:');
+    if (comment !== null) {
+      this.approvalRequestService.rejectRequest(request.ID, request.LeaveRequest, comment).subscribe(() => {
+        this.loadApprovalRequests(); // Reload the list after rejection
+      });
+    }
+  }
+  editApprovalRequest(id: number): void {
+    this.router.navigate(['/Lists/ApprovalRequests/edit', id]);
+  }
+  deleteApprovalRequest(id: number): void {
+    this.approvalRequestService.deleteApprovalRequest(id).subscribe(() => {
+      this.loadApprovalRequests();
+    });
+  }
 }

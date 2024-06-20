@@ -124,17 +124,30 @@ app.get('/Lists/ApprovalRequests', (req, res) => {
 //     });
 // });
 // Endpoint to create approval request
+// app.post('/Lists/ApprovalRequests', (req, res) => {
+//     const { Approver, LeaveRequest, Status, Comment } = req.body;
+//     const sql = 'INSERT INTO ApprovalRequests (Approver, LeaveRequest, Status, Comment) VALUES (?, ?, ?, ?)';
+//     db.query(sql, [Approver, LeaveRequest, Status, Comment], (err, result) => {
+//     if (err) {
+//         console.error('Error creating approval request:', err);
+//         res.status(500).send(err);
+//     } else {
+//         res.status(201).send({ id: result.insertId, Approver, LeaveRequest, Status, Comment });
+//     }
+//     });
+// });
+
 app.post('/Lists/ApprovalRequests', (req, res) => {
-    const { Approver, LeaveRequest, Status, Comment } = req.body;
-    const sql = 'INSERT INTO ApprovalRequests (Approver, LeaveRequest, Status, Comment) VALUES (?, ?, ?, ?)';
-    db.query(sql, [Approver, LeaveRequest, Status, Comment], (err, result) => {
-    if (err) {
-        console.error('Error creating approval request:', err);
-        res.status(500).send(err);
-    } else {
-        res.status(201).send({ id: result.insertId, Approver, LeaveRequest, Status, Comment });
-    }
-    });
+    const approvalRequest = req.body;
+    approvalRequest.Status = 'New'
+    approvalRequest.Comment = '';
+    db.query('INSERT INTO ApprovalRequests SET ?', approvalRequest, (err, results) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).send({ id: results.insertId, ...approvalRequest });
+        }
+    }); 
 });
 // Endpoint to get approval requests by approver (HR manager or project manager)
 app.get('/Lists/ApprovalRequests/:approverId', (req, res) => {
@@ -146,6 +159,18 @@ app.get('/Lists/ApprovalRequests/:approverId', (req, res) => {
             res.status(500).send(err);
         } else {
             res.json(results);
+        }
+    });
+});
+
+app.put('/Lists/ApprovalRequests/:id', (req, res) => {
+    const { id } = req.params;
+    const approvalRequest = req.body;
+    db.query('UPDATE ApprovalRequests SET ? WHERE ID = ?', [approvalRequest, id], (err, results) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send({ id, ...approvalRequest });
         }
     });
 });

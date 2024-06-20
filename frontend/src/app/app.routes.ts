@@ -15,6 +15,7 @@ export const routes: Routes = [
     { path: 'Lists/Employees/edit/:id', component: EmployeeFormComponent, canActivate: [roleGuard] },
     { path: 'Lists/ApprovalRequests', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
     { path: 'Lists/ApprovalRequests/add', component: ApprovalRequestAddComponent, canActivate: [roleGuard]},
+    { path: 'Lists/ApprovalRequests/edit/:id', component: ApprovalRequestAddComponent, canActivate: [roleGuard]},
     { path: 'Lists/ApprovalRequests/:approverId', component: ApprovalRequestListComponent, canActivate: [roleGuard]},
     { path: 'Lists/LeaveRequests', component: LeaveRequestComponent, canActivate: [roleGuard]},
     { path: 'Lists/LeaveRequests/add', component: LeaveRequestFormComponent, canActivate: [roleGuard]},
