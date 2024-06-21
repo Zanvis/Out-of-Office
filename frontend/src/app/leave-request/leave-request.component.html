@@ -19,6 +19,7 @@
                 <th style="cursor: pointer;" (click)="onSort('AbsenceReason')">Absence Reason</th>
                 <th style="cursor: pointer;" (click)="onSort('StartDate')">Start Date</th>
                 <th style="cursor: pointer;" (click)="onSort('EndDate')">End Date</th>
+                <th style="cursor: pointer;" (click)="onSort('Comment')">Comment</th>
                 <th style="cursor: pointer;" (click)="onSort('Status')">Status</th>
                 <th>Actions</th>
             </tr>
@@ -30,6 +31,7 @@
                 <td>{{ request.AbsenceReason }}</td>
                 <td>{{ request.StartDate | date }}</td>
                 <td>{{ request.EndDate | date }}</td>
+                <td>{{ request.Comment }}</td>
                 <td>{{ request.Status }}</td>
                 <td>
                     <button (click)="editLeaveRequest(request.ID)">Edit</button>

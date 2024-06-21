@@ -3,10 +3,10 @@
     <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/Employees/add">Add Employee</button>
     <button routerLink="/Lists/LeaveRequests">Leave Requests</button>
     <button routerLink="/Lists/LeaveRequests/add">Add Leave Request</button>
-    <button routerLink="/Lists/ApprovalRequests">Approval Requests</button>
-    <button routerLink="/Lists/ApprovalRequests/add">Add Approval Request</button>
-    <button routerLink="/Lists/Projects">Projects</button>
-    <button routerLink="/Lists/Projects/add">Add Project</button>
+    <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/ApprovalRequests">Approval Requests</button>
+    <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/ApprovalRequests/add">Add Approval Request</button>
+    <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/Projects">Projects</button>
+    <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/Projects/add">Add Project</button>
 </div>
 <div>
     <label for="filter">Filter:</label>

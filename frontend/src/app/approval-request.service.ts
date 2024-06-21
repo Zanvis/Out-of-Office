@@ -33,16 +33,12 @@ export class ApprovalRequestService {
   }
 
   approveRequest(requestId: number, leaveRequestId: number): Observable<void> {
-    // Update approval request status to "Approved"
     this.http.put<void>(`${this.baseUrl}/${requestId}`, { Status: 'Approved' }).subscribe();
-    // Update leave request status to "Approved" and recalculate absence balance
     return this.http.put<void>(`${this.leaveRequestUrl}/${leaveRequestId}`, { Status: 'Approved' });
   }
 
   rejectRequest(requestId: number, leaveRequestId: number, comment: string): Observable<void> {
-    // Update approval request status to "Rejected" with a comment
     this.http.put<void>(`${this.baseUrl}/${requestId}`, { Status: 'Rejected', Comment: comment }).subscribe();
-    // Update leave request status to "Rejected" with a comment
     return this.http.put<void>(`${this.leaveRequestUrl}/${leaveRequestId}`, { Status: 'Rejected', Comment: comment });
   }
 }
