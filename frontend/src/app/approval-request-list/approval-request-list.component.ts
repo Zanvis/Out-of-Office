@@ -95,7 +95,7 @@ export class ApprovalRequestListComponent implements OnInit {
     const comment = prompt('Enter a comment for rejection:');
     if (comment !== null) {
       this.approvalRequestService.rejectRequest(request.ID, request.LeaveRequest, comment).subscribe(() => {
-        this.loadApprovalRequests(); // Reload the list after rejection
+        this.loadApprovalRequests();
       });
     }
   }

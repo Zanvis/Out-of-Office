@@ -30,4 +30,7 @@ export class EmployeeService {
   deleteEmployee(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
+  assignProject(employeeId: number, projectId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/${employeeId}/assignProject`, { projectId });
+  }
 }

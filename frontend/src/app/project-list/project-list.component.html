@@ -1,6 +1,6 @@
 <div>
   <button routerLink="/Lists/Employees">Return</button>
-  <button routerLink="/Lists/Projects/add">Add Project</button>
+  <button *ngIf="roleService.getRole() === 'HR Manager' || roleService.getRole() === 'Project Manager'" routerLink="/Lists/Projects/add">Add Project</button>
 </div>
 <div>
   <label for="filter">Filter:</label>

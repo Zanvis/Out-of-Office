@@ -88,4 +88,18 @@ export class EmployeeListComponent implements OnInit {
       this.filteredEmployees = [...this.employees];
     }
   }
+  assignProject(employeeId: number): void {
+    prompt("Enter the Project ID to assign:");
+    // if (projectId) {
+    //   this.employeeService.assignProject(employeeId, parseInt(projectId)).subscribe({
+    //     next: () => {
+    //       alert('Project assigned successfully');
+    //     },
+    //     error: (error) => {
+    //       alert('Failed to assign project');
+    //       console.error(error);
+    //     }
+    //   });
+    // }
+  }
 }
