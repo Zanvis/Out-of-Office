@@ -6,5 +6,5 @@ export interface Employee {
     Status: string;
     PeoplePartner: number;
     OutOfOfficeBalance: number;
-    Photo: File;
+    Photo?: string;
 }

@@ -19,14 +19,30 @@ export class EmployeeService {
     return this.http.get<Employee>(`${this.baseUrl}/${id}`);
   }
 
-  addEmployee(employee: Employee): Observable<Employee> {
-    return this.http.post<Employee>(this.baseUrl, employee);
+  // addEmployee(employee: Employee): Observable<Employee> {
+  //   return this.http.post<Employee>(this.baseUrl, employee);
+  // }
+
+  // updateEmployee(id: number, employee: Employee): Observable<Employee> {
+  //   return this.http.put<Employee>(`${this.baseUrl}/${id}`, employee);
+  // }
+  addEmployee(employee: Employee, photo: File): Observable<Employee> {
+    const formData = new FormData();
+    formData.append('employee', JSON.stringify(employee));
+    formData.append('photo', photo);
+
+    return this.http.post<Employee>(this.baseUrl, formData);
   }
 
-  updateEmployee(id: number, employee: Employee): Observable<Employee> {
-    return this.http.put<Employee>(`${this.baseUrl}/${id}`, employee);
-  }
+  updateEmployee(id: number, employee: Employee, photo: File | null): Observable<Employee> {
+    const formData = new FormData();
+    formData.append('employee', JSON.stringify(employee));
+    if (photo) {
+      formData.append('photo', photo);
+    }
 
+    return this.http.put<Employee>(`${this.baseUrl}/${id}`, formData);
+  }
   deleteEmployee(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }

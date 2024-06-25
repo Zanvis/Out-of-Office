@@ -24,11 +24,26 @@ db.connect((err) => {
 });
 
 // Get all employees
+// app.get('/Lists/Employees', (req, res) => {
+//     db.query('SELECT * FROM Employees', (err, results) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         } else {
+//             res.json(results);
+//         }
+//     });
+// });
 app.get('/Lists/Employees', (req, res) => {
     db.query('SELECT * FROM Employees', (err, results) => {
         if (err) {
             res.status(500).send(err);
         } else {
+            // Convert photo BLOB to Base64 encoded string
+            results.forEach(employee => {
+                if (employee.Photo) {
+                    employee.Photo = employee.Photo.toString('base64');
+                }
+            });
             res.json(results);
         }
     });
@@ -48,20 +63,48 @@ app.post('/Lists/Employees/:id/photo', upload.single('photo'), (req, res) => {
 });
 
 // Get employee by ID
+// app.get('/Lists/Employees/:id', (req, res) => {
+//     const { id } = req.params;
+//     db.query('SELECT * FROM Employees WHERE ID = ?', [id], (err, results) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         } else {
+//             res.json(results[0]);
+//         }
+//     });
+// });
 app.get('/Lists/Employees/:id', (req, res) => {
     const { id } = req.params;
     db.query('SELECT * FROM Employees WHERE ID = ?', [id], (err, results) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.json(results[0]);
+            const employee = results[0];
+            if (employee && employee.Photo) {
+                employee.Photo = employee.Photo.toString('base64');
+            }
+            res.json(employee);
         }
     });
 });
 
 // Create a new employee
-app.post('/Lists/Employees', (req, res) => {
-    const employee = req.body;
+// app.post('/Lists/Employees', (req, res) => {
+//     const employee = req.body;
+//     db.query('INSERT INTO Employees SET ?', employee, (err, results) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         } else {
+//             res.status(201).send({ id: results.insertId, ...employee });
+//         }
+//     });
+// });
+app.post('/Lists/Employees', upload.single('photo'), (req, res) => {
+    const employee = JSON.parse(req.body.employee);
+    if (req.file) {
+        employee.Photo = req.file.buffer;
+    }
+
     db.query('INSERT INTO Employees SET ?', employee, (err, results) => {
         if (err) {
             res.status(500).send(err);
@@ -72,9 +115,24 @@ app.post('/Lists/Employees', (req, res) => {
 });
 
 // Update an employee
-app.put('/Lists/Employees/:id', (req, res) => {
+// app.put('/Lists/Employees/:id', (req, res) => {
+//     const { id } = req.params;
+//     const employee = req.body;
+//     db.query('UPDATE Employees SET ? WHERE ID = ?', [employee, id], (err, results) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         } else {
+//             res.send({ id, ...employee });
+//         }
+//     });
+// });
+app.put('/Lists/Employees/:id', upload.single('photo'), (req, res) => {
     const { id } = req.params;
-    const employee = req.body;
+    const employee = JSON.parse(req.body.employee);
+    if (req.file) {
+        employee.Photo = req.file.buffer;
+    }
+
     db.query('UPDATE Employees SET ? WHERE ID = ?', [employee, id], (err, results) => {
         if (err) {
             res.status(500).send(err);

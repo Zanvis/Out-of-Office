@@ -34,7 +34,8 @@
         <tbody>
             <tr *ngFor="let employee of filteredEmployees">
                 <td>{{ employee.ID }}</td>
-                <td><img *ngIf="employee.Photo" [src]="'data:image/jpeg;base64,' + employee.Photo" alt="Employee Photo" width="50"></td>
+                <td><img *ngIf="employee.Photo" [src]="'data:image/jpeg;base64,' + employee.Photo" alt="Employee Photo" width="40">
+                </td>
                 <td>{{ employee.FullName }}</td>
                 <td>{{ employee.Subdivision }}</td>
                 <td>{{ employee.Position }}</td>

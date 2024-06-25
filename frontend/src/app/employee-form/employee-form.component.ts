@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class EmployeeFormComponent implements OnInit {
   employeeForm: FormGroup;
   id!: number;
-  selectedFile: File | undefined;
+  selectedFile: File | null = null;
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
@@ -40,21 +40,28 @@ export class EmployeeFormComponent implements OnInit {
       });
     }
   }
-  onFileSelected(event: any): void {
-    if (event.target.files.length > 0) {
-        this.selectedFile = event.target.files[0];
-        this.employeeForm.get('Photo')!.setValue(this.selectedFile);
-    }
-  }
+
   onSubmit(): void {
+    if (this.employeeForm.invalid) {
+      return;
+    }
+
+    const employeeData = this.employeeForm.value;
     if (this.id) {
-      this.employeeService.updateEmployee(this.id, this.employeeForm.value).subscribe(() => {
+      this.employeeService.updateEmployee(this.id, employeeData, this.selectedFile).subscribe(() => {
         this.router.navigate(['/Lists/Employees']);
       });
     } else {
-      this.employeeService.addEmployee(this.employeeForm.value).subscribe(() => {
+      this.employeeService.addEmployee(employeeData, this.selectedFile!).subscribe(() => {
         this.router.navigate(['/Lists/Employees']);
       });
+    }
+  }
+
+  onFileSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+      this.employeeForm.get('Photo')!.setValue(this.selectedFile);
     }
   }
 }
