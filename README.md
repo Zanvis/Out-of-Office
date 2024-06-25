@@ -32,7 +32,7 @@ Oczywiście uprzednio należy utworzyć bazę danych z odpowiednimi tabelami. Ja
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/b7fbb879-b969-4e94-92a6-029acf4adf5b)
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/0aae8919-74e1-4095-b237-ffebf25b4b8a)
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/9378872c-41b3-4749-b474-b8a772b61f54)
-![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/880e6ebc-dff5-4c78-8d0c-61899ef18df6)
+![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/815a511b-e92d-4abc-b9ce-d6639dc36a56)
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/05a71f1d-afe9-4d36-ae72-1f9ec7f7a354)
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/3829b739-af6a-4740-a8ad-29ebba3b4fd3)
 ![image](https://github.com/Zanvis/Out-of-Office/assets/161169953/cbb7a9ed-00f2-4b83-bcbd-b46193ec0259)
