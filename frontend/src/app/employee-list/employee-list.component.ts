@@ -45,7 +45,6 @@ export class EmployeeListComponent implements OnInit {
     this.employees.sort((a, b) => {
       const aValue = this.getPropertyValue(a, this.sortBy);
       const bValue = this.getPropertyValue(b, this.sortBy);
-
       if (typeof aValue === 'string' && typeof bValue === 'string') {
         return this.sortDirection * aValue.localeCompare(bValue);
       } else if (typeof aValue === 'number' && typeof bValue === 'number') {
@@ -70,14 +69,25 @@ export class EmployeeListComponent implements OnInit {
     this.sortEmployees();
   }
 
+  // applyFilter(event: Event): void {
+  //   const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+  //   this.filteredEmployees = this.employees.filter((request) =>
+  //     Object.values(request).some(value =>
+  //       (value !== null && value !== undefined) && value.toString().toLowerCase().includes(filterValue)
+  //     )
+  //   );
+  // }
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    this.filteredEmployees = this.employees.filter((request) =>
-      Object.values(request).some(value =>
-        (value !== null && value !== undefined) && value.toString().toLowerCase().includes(filterValue)
-      )
+    this.filteredEmployees = this.employees.filter((employee) =>
+      Object.entries(employee)
+        .filter(([key, _]) => key !== 'Photo') // Exclude the 'Photo' property
+        .some(([_, value]) =>
+          (value !== null && value !== undefined) && value.toString().toLowerCase().includes(filterValue)
+        )
     );
   }
+
   searchByRequestId(event: Event): void {
     const requestId = (event.target as HTMLInputElement).value;
     if (requestId) {
